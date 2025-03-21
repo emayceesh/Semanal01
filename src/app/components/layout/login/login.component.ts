@@ -18,7 +18,7 @@ export class LoginComponent {
 
   logar() {
     if (this.login.username == 'admin' && this.login.password == 'admin') {
-      this.router.navigate(['admin/carros']);
-    } else alert('não de ucerto');
+      this.router.navigate(['admin/aluno']);
+    } else alert('não deu certo');
   }
 }

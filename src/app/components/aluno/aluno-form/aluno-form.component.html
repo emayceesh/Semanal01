@@ -1,1 +1,32 @@
-<p>aluno-form works!</p>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-4"></div>
+
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body centralizar">
+          <h2>Cadastro de aluno</h2>
+
+
+          <form #formulario="ngForm">
+
+            Nome do aluno:<br>
+          <input  required [(ngModel)]="aluno.nomeCompleto" type="text" class="form-control" name="nome">
+            <br>
+          CPF:<br>
+          <input  required [(ngModel)]="aluno.cpf" type="text" class="form-control" name="cpf">
+          Telefone:<br>
+          <input  [(ngModel)]="aluno.telefone" type="text" class="form-control" name="telefone">
+          
+            <br />
+            <button (click)="save()"  [disabled]="!formulario.valid" class="btn btn-success">Salvar</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4"></div>
+  </div>
+</div>

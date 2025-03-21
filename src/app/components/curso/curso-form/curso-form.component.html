@@ -1,1 +1,23 @@
-<p>curso-form works!</p>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-4"></div>
+
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body centralizar">
+          <h2>Cadastro de Cursos</h2>
+
+          <form #formulario="ngForm">
+            Nome do curso:<br />
+            <input required [(ngModel)]="curso.nomeCurso" type="text" class="form-control" name="nome"/>
+            <br />
+            <button (click)="save()" [disabled]="!formulario.valid" class="btn btn-success"> Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4"></div>
+  </div>
+</div>

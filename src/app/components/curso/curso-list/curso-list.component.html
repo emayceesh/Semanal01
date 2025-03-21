@@ -1,1 +1,34 @@
-<p>curso-list works!</p>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-12 azul">
+      <div class="card">
+        <div class="card-body alinharDireita">
+          <h1>Cadastro de Cursos</h1>
+          <br />
+          <a href="admin/curso/new" class="btn btn-primary">Novo</a>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NOME DO CURSO</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (curso of lista; track $index) {
+              <tr>
+                <td>{{ curso.id }}</td>
+                <td>{{ curso.nomeCurso }}</td>
+                <td class="alinharDireita">
+                  <a href="admin/curso/edit/{{ curso.id }}"class="btn btn-primary">Editar</a>
+                  <button (click)="delete(curso)" class="btn btn-danger">Deletar</button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

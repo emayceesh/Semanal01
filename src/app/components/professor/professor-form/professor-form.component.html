@@ -1,1 +1,35 @@
-<p>professor-form works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body centralizar">
+            <h2>Cadastro de Professor</h2>
+  
+            <form #formulario="ngForm">
+              Nome do Professor:<br>
+              <input required [(ngModel)]="professor.nomeProfessor" type="text" class="form-control" name="nomeProfessor">
+              <br>
+              CPF:<br>
+              <input required [(ngModel)]="professor.cpf" type="text" class="form-control" name="cpf">
+              <br>
+              Email:<br>
+              <input required [(ngModel)]="professor.email" type="email" class="form-control" name="email">
+              <br>
+              Especialidade:<br>
+              <input required [(ngModel)]="professor.especialidade" type="text" class="form-control" name="especialidade">
+              <br>
+              Turmas:<br>
+              <select multiple [(ngModel)]="professor.turma" name="turma" class="form-control">
+                <option *ngFor="let turma of turmas" [ngValue]="turma">{{ turma.nomeTurma }}</option>
+              </select>
+              <br>
+              <button (click)="save()" [disabled]="!formulario.valid" class="btn btn-success">Salvar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-4"></div>
+    </div>
+  </div>
+  

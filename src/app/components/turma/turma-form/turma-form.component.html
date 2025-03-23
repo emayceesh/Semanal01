@@ -1,1 +1,45 @@
-<p>turma-form works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body centralizar">
+            <h2>Cadastro de Turma</h2>
+  
+            <form #formulario="ngForm">
+              Nome da Turma:<br>
+              <input required [(ngModel)]="turma.nomeTurma" type="text" class="form-control" name="nomeTurma">
+              <br>
+              Semestre:<br>
+              <input required [(ngModel)]="turma.semestre" type="text" class="form-control" name="semestre">
+              <br>
+              Ano:<br>
+              <input required [(ngModel)]="turma.anoTurma" type="number" class="form-control" name="anoTurma">
+              <br>
+              Turno:<br>
+              <input required [(ngModel)]="turma.turno" type="text" class="form-control" name="turno">
+              <br>
+              Curso:<br>
+              <select required [(ngModel)]="turma.curso" name="curso" class="form-control">
+                <option *ngFor="let curso of cursos" [ngValue]="curso">{{ curso.nome }}</option>
+              </select>
+              <br>
+              Alunos:<br>
+              <select multiple [(ngModel)]="turma.alunos" name="alunos" class="form-control">
+                <option *ngFor="let aluno of alunos" [ngValue]="aluno">{{ aluno.nomeCompleto }}</option>
+              </select>
+              <br>
+              Professores:<br>
+              <select multiple [(ngModel)]="turma.professor" name="professor" class="form-control">
+                <option *ngFor="let professor of professores" [ngValue]="professor">{{ professor.nome }}</option>
+              </select>
+              <br>
+              <button (click)="save()" [disabled]="!formulario.valid" class="btn btn-success">Salvar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-4"></div>
+    </div>
+  </div>
+  

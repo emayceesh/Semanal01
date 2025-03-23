@@ -1,1 +1,46 @@
-<p>turma-list works!</p>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-12 azul">
+
+            <div class="card">
+                <div class="card-body alinharDireita">
+            <h1>Cadastro de Turmas</h1><br>
+            <a href="admin/turma/new" class="btn btn-primary">Novo</a>
+ 
+                <table class="table">
+                    
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">NOME DA TURMA</th>
+                        <th scope="col">SEMESTRE</th>
+                        <th scope="col">ANO</th>
+                        <th scope="col">TURNO</th>
+                        <th scope="col">AÇÕES</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @for (turma of lista; track $index) {
+                        <tr>
+                            <td>{{turma.id}}</td>
+                            <td>{{turma.nomeTurma}}</td>
+                            <td>{{turma.semestre}}</td>
+                            <td>{{turma.anoTurma}}</td>
+                            <td>{{turma.turno}}</td>
+                            <td class="alinharDireita"> 
+                                <a href="admin/turma/edit/{{turma.id}}" class="btn btn-primary">Editar</a>
+                                <button (click)="delete(turma)" class="btn btn-danger">Deletar</button>
+                             </td>
+                        </tr>
+                    }
+                   
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>

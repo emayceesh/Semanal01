@@ -29,10 +29,10 @@ export class TurmaService {
   save(professor: Professor): Observable<string> {
     return this.http.post<string>(this.API+'/save', professor, {responseType: 'text' as 'json'})
   }
-
+  // dsds
   update(professor: Professor, id: number): Observable<string> {
     return this.http.put<string>(this.API+'/update/'+id, professor, {responseType: 'text' as 'json'})
   }
-  
+
 
 }

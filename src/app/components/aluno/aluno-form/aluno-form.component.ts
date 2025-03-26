@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Aluno } from '../../../models/aluno';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { FormsModule } from '@angular/forms';
+import { AlunoService } from '../../../services/aluno.service';
 
 @Component({
   selector: 'app-aluno-form',
@@ -14,32 +15,59 @@ import { FormsModule } from '@angular/forms';
 export class AlunoFormComponent {
 
 
-  aluno = new Aluno();
+  aluno: Aluno = new Aluno();
 
   rotaAtivida = inject(ActivatedRoute);
+  roteador = inject(Router);
+  alunoService = inject(AlunoService);
 
   constructor(){
     let id = this.rotaAtivida.snapshot.params['id'];
     if(id){
-
-      //AQUI VC VAI CHAMAR O FINDBYID()
-      
-      let aluno1 = new Aluno();
-      aluno1.id = 1;
-      aluno1.nomeCompleto = 'Mufasa';
-      aluno1.cpf = '111.222.333-45';
-      aluno1.telefone = '45 99942-3454';
-      this.aluno = aluno1; //setar o objeto no carro do formulario
+      this.findById(id);
     }
+  }
+
+  findById(id: number){
+
+    this.alunoService.findById(id).subscribe({
+      next: (alunoRetornado) => {
+        this.aluno = alunoRetornado;
+      },
+      error: (erro) => {
+        alert('Deu erro!');
+      }
+    });
+
   }
 
   save(){
     if(this.aluno.id > 0){
       // UPDATE
-      alert('Aluno alterado com sucesso.');
+      this.alunoService.update(this.aluno, this.aluno.id).subscribe({
+        next: (mensagem) => {
+          alert(mensagem);
+          this.roteador.navigate(['admin/aluno']);
+        },
+        error: (erro) => {
+          alert('Deu erro!');
+        }
+      });
+
+
     }else{
       // SAVE
-      alert('Aluno matriculado com sucesso!');
+      this.alunoService.save(this.aluno).subscribe({
+        next: (mensagem) => {
+          alert(mensagem);
+          this.roteador.navigate(['admin/aluno']);
+        },
+        error: (erro) => {
+          alert('Deu erro!');
+        }
+      });
+
+
     }
   }
 }

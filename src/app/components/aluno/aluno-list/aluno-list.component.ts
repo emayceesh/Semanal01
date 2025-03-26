@@ -18,7 +18,28 @@ export class AlunoListComponent {
     this.findAll();
   }
 
-  findAll(){
+  findAll() {
+    this.alunoService.findAll().subscribe({
+      next: (listaRetornada) => {
+        this.lista = listaRetornada;
+      },
+      error: (erro) => {
+        alert('ERROOOOU!');
+      },
+    });
   }
 
+  delete(aluno: Aluno) {
+    if (confirm('Deseja deletar isso aí?')) {
+      this.alunoService.deleteById(aluno.id).subscribe({
+        next: (mensagem) => {
+          alert(mensagem);
+          this.findAll();
+        },
+        error: (erro) => {
+          alert('Deu erro!');
+        },
+      });
+    }
+  }
 }

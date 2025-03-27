@@ -3,16 +3,19 @@ import Swal from 'sweetalert2';
 import { Professor } from '../../../models/professor';
 import { ProfessorService } from '../../../services/professor.service';
 import { MdbModalService, MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { ProfessorFormComponent } from "../professor-form/professor-form.component";
   //  daffsadsa
 @Component({
   selector: 'app-professor-list',
   standalone: true,
-  imports: [],
+  imports: [ProfessorFormComponent],
   templateUrl: './professor-list.component.html',
   styleUrl: './professor-list.component.scss',
 })
 export class ProfessorListComponent {
   lista: Professor[] = [];
+  pesquisa: string = '';
+  professorEdit!:Professor;
 
   professorService = inject(ProfessorService);
   @ViewChild("modalCarroForm") modalProfessorForm!: TemplateRef<any>; //referência ao template da modal
@@ -59,5 +62,32 @@ export class ProfessorListComponent {
       }
     });
   }
+  
+  edit(professor: Professor){
+    this.professorEdit = professor; //carregando o carroEdit com o carro clicado na tabela
+    this.modalRef = this.modalService.open(this.modalProfessorForm);
+  }
+  findByNome(){
+
+    this.professorService.findByNome(this.pesquisa).subscribe({
+      next: (lista) => {
+        this.lista = lista;
+      },
+      error: (erro) => {
+        Swal.fire(erro.error, '', 'error');;
+      }
+    })
+
+  }
+
+  new(){ //ABRIRRRRRRRRRRRRRRRRRR
+    this.professorEdit = new Professor(); //limpando o carroEdit para um novo cadastro
+    this.modalRef = this.modalService.open(this.modalProfessorForm);
+  }
+  meuEventoTratamento(mensagem:any){
+    this.findAll();
+    this.modalRef.close();
+  }
+//commit
 }
 

@@ -41,3 +41,20 @@
         </div>
     </div>
 </div>
+<ng-template #modalCarroForm>
+
+    <div class="modal-header">
+        @if(professorEdit.id > 0){
+            <h5 class="modal-title" id="exampleModalLabel">Editar Professor</h5>
+        }@else {
+            <h5 class="modal-title" id="exampleModalLabel">Novo Professor</h5>  
+        }
+        <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+    </div>
+    <div class="modal-body">
+
+        <app-professor-form [professor]="professorEdit" (meuEvento)="meuEventoTratamento($event)"></app-professor-form>
+
+    </div>
+
+</ng-template>

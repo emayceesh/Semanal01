@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Professor } from '../../../models/professor';
 import { ProfessorService } from '../../../services/professor.service';
 
@@ -25,10 +25,10 @@ export class ProfessorListComponent {
         this.lista = listaRetornada;
       },
       error: (erro) => {
-        alert('ERROOOOU!');
+        alert(erro.error)
       }
     });
-  
+    
   }
 
   delete(professor: Professor){
@@ -43,7 +43,6 @@ export class ProfessorListComponent {
           alert('Deu erro!');
         }
       });
-
-    }
+       }
   }
 }

@@ -1,1 +1,67 @@
 <p>disciplina-list works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 azul">
+      <div class="card">
+        <div class="card-body">
+          <h3><i class="fas fa-book fa-sm"></i> Cadastro de Disciplinas</h3><br>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="input-group mb-3">
+                <input (keyup)="findByNome()" [(ngModel)]="pesquisa" type="text" class="form-control"
+                  placeholder="Digite parte do nome da disciplina" aria-label="Nome da disciplina"
+                  aria-describedby="button-addon2" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="alinharADireita">
+                <a (click)="new()" class="btn btn-success btn-rounded" mdbRippled>
+                  <i class="fas fa-plus fa-sm"></i> Novo
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NOME</th>
+                <th scope="col">DESCRIÇÃO</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let disciplina of lista">
+                <td>{{ disciplina.id }}</td>
+                <td>{{ disciplina.nome }}</td>
+                <td>{{ disciplina.descricao }}</td>
+                <td class="alinharADireita">
+                  <a (click)="edit(disciplina)" class="btn btn-primary btn-rounded" mdbRippled>
+                    <i class="fas fa-pencil fa-sm"></i>
+                  </a>
+                  <button (click)="delete(disciplina)" class="btn btn-danger btn-rounded" mdbRippled>
+                    <i class="fas fa-trash fa-sm"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalDisciplinaForm>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">
+      {{ disciplinaEdit.id > 0 ? 'Editar disciplina' : 'Nova disciplina' }}
+    </h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+  </div>
+  <div class="modal-body">
+    <app-disciplinas-form [disciplina]="disciplinaEdit" (meuEvento)="meuEventoTratamento($event)"></app-disciplinas-form>
+  </div>
+</ng-template>

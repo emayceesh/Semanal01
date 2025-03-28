@@ -6,36 +6,39 @@ import { Professor } from '../../../models/professor';
 import { ProfessorService } from '../../../services/professor.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import Swal from 'sweetalert2';
-import { ProfessorListComponent } from '../professor-list/professor-list.component';
+import { Disciplina } from '../../../models/disciplina';
+import { DisciplinaService } from '../../../services/disciplina.service';
+// Removed DisciplinaListComponent import as it is not statically analyzable
 
 @Component({
   selector: 'app-professor-form',
   standalone: true,
-  imports: [MdbFormsModule, FormsModule, ProfessorListComponent],
+  imports: [MdbFormsModule, FormsModule],  // Removed DisciplinaListComponent from imports
   templateUrl: './professor-form.component.html',
-  styleUrl: './professor-form.component.scss',
+  styleUrls: ['./professor-form.component.scss'],
 })
 export class ProfessorFormComponent {
 
   @Input("professor") professor: Professor = new Professor();
-  @Output("meuEvento") meuEvento = new EventEmitter(); //ELE VAI PEGAR QUALQUER COISA E EMITIR
+  @Output("meuEvento") meuEvento = new EventEmitter(); // Vai emitir qualquer coisa
 
-  
+  listaDisciplinas!: Disciplina[];
 
-  rotaAtivida = inject(ActivatedRoute);
+  rotaAtivada = inject(ActivatedRoute);
   roteador = inject(Router);
   professorService = inject(ProfessorService);
+  disciplinaService = inject(DisciplinaService);
 
-  @ViewChild("modalProfessorList") modalMarcasList!: TemplateRef<any>; //referência ao template da modal
-  modalService = inject(MdbModalService); //para abrir a modal
-  modalRef!: MdbModalRef<any>; //vc conseguir fechar a modal depois
-
+  @ViewChild("modalDisciplinaList") modalDisciplinaList!: TemplateRef<any>; // Alterado para Disciplina
+  modalService = inject(MdbModalService);  // Para abrir a modal
+  modalRef!: MdbModalRef<any>;  // Para conseguir fechar a modal depois
 
   constructor() {
-    let id = this.rotaAtivida.snapshot.params['id'];
+    let id = this.rotaAtivada.snapshot.params['id'];
     if (id) {
       this.findById(id);
     }
+    this.findAllDisciplinas();
   }
 
   findById(id: number) {
@@ -44,7 +47,7 @@ export class ProfessorFormComponent {
         this.professor = professorRetornado;
       },
       error: (erro) => {
-        alert('Deu erro!');
+        Swal.fire('Erro ao buscar professor!', '', 'error');
       },
     });
   }
@@ -52,50 +55,52 @@ export class ProfessorFormComponent {
   save() {
     if (this.professor.id > 0) {
       // UPDATE
-      this.professorService
-        .update(this.professor, this.professor.id)
-        .subscribe({
-          next: (mensagem) => {
-            alert(mensagem);
-            this.roteador.navigate(['admin/professor']);
-          },
-          error: (erro) => {
-            alert('Deu erro!');
-          },
-        });
-    } else{
-      // SAVE
-      this.professorService.save(this.professor).subscribe({
+      this.professorService.update(this.professor, this.professor.id).subscribe({
         next: (mensagem) => {
           Swal.fire(mensagem, '', 'success');
-          this.roteador.navigate(['admin/carros']);
+          this.roteador.navigate(['admin/professores']);
           this.meuEvento.emit("OK");
         },
         error: (erro) => {
           Swal.fire(erro.error, '', 'error');
-        }
+        },
       });
-
+    } else {
+      // SAVE
+      this.professorService.save(this.professor).subscribe({
+        next: (mensagem) => {
+          Swal.fire(mensagem, '', 'success');
+          this.roteador.navigate(['admin/professores']);
+          this.meuEvento.emit("OK");
+        },
+        error: (erro) => {
+          Swal.fire(erro.error, '', 'error');
+        },
+      });
     }
   }
 
+  findAllDisciplinas() {
+    this.disciplinaService.findAll().subscribe({
+      next: (lista) => {
+        this.listaDisciplinas = lista;
+      },
+      error: (erro) => {
+        Swal.fire('Erro ao carregar disciplinas!', '', 'error');
+      },
+    });
+  }
 
-  compareId(a: any, b: any) {
+  compareId(a: Disciplina, b: Disciplina) {
     return a && b ? a.id === b.id : a === b;
   }
 
-  meuEventoTratamento(professor: Professor){
-    this.professor.nomeProfessor = professor.nomeProfessor;
-    this.professor.id = professor.id;
+  meuEventoTratamento(disciplina: Disciplina) {
+    this.professor.disciplina = disciplina;  // Agora atribui a disciplina ao professor
     this.modalRef.close();
   }
+
+  buscarDisciplina() {
+    this.modalRef = this.modalService.open(this.modalDisciplinaList, { modalClass: 'modal-xl' });
   }
-
-
-
-
-
-
-
-
-
+}

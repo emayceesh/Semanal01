@@ -16,7 +16,7 @@ export class DisciplinaService {
   findAll(): Observable<Disciplina[]> {
     return this.http.get<Disciplina[]>(`${this.API}/findAll`);
   }
-//
+//effeqsdsdasd
   // Buscar disciplinas por nome
   findByNome(nome: string): Observable<Disciplina[]> {
     const params = new HttpParams().set('nome', nome);

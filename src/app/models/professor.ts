@@ -6,6 +6,5 @@ export class Professor {
     cpf!: string;
     email!: string;
     especialidade!: string;
-    turma!: Turma[];//para a lista turma
-  disciplina: import("b:/Faculdade/Semanal/Semanal01/src/app/models/disciplina").Disciplina | undefined;
+    //turma!: Turma[];//para a lista turma
 }

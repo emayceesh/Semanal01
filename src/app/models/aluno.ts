@@ -7,6 +7,4 @@ export class Aluno {
     cpf!: string;
     telefone!: string;
     cadastroCompleto!: boolean;
-    turma!: Turma;
-    curso!: Curso;//para o objeto curso
 }

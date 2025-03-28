@@ -8,7 +8,7 @@ export class Turma {
     semestre!: string;
     anoTurma!: string;
     turno!: string;
-    alunos!: Aluno[];//para a lista de alunos
-    curso!: Curso;//para o objeto curso
-    professor!: Professor[];//para a lista de professores
+    //alunos!: Aluno[];//para a lista de alunos
+    //curso!: Curso;//para o objeto curso
+    //professor!: Professor[];//para a lista de professores
 }

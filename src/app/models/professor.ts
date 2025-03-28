@@ -6,5 +6,5 @@ export class Professor {
     cpf!: string;
     email!: string;
     especialidade!: string;
-    turma!: Turma[];//para a lista turma
+    //turma!: Turma[];//para a lista turma
 }

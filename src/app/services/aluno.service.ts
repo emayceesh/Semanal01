@@ -23,7 +23,7 @@ export class AlunoService {
   }
 
   deleteById(id: number): Observable<string>{
-    return this.http.delete<string>(this.API+'/deleteById/'+id, {responseType: 'text' as 'json'})
+    return this.http.delete<string>(this.API+'/delete/'+id, {responseType: 'text' as 'json'})
   }
 
   save(aluno: Aluno): Observable<string> {

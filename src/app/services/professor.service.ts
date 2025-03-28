@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Professor } from '../models/professor';
@@ -9,6 +9,13 @@ import { Professor } from '../models/professor';
 
 
 export class ProfessorService {
+
+  findByNome(nome: string): Observable<Professor[]>{
+    let par = new HttpParams()
+    .set('nome',nome);
+    
+    return this.http.get<Professor[]>(this.API+'/findByNome', {params: par});
+  }
 
   http = inject(HttpClient);
 

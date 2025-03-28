@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row">
+      <div class="col-4"></div>
+  
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body centralizar">
+  
+            <h3>Cadastro de acessório</h3>
+            <br />
+  
+            <form #formulario="ngForm" (ngSubmit)="save()">
+  
+              <!-- Campo de Nome do Acessório -->
+              <mdb-form-control>
+                <input mdbInput type="text" name="nome" class="form-control" [(ngModel)]="disciplina.nome" />
+                <label mdbLabel class="form-label" for="nome">Nome do acessório:</label>
+              </mdb-form-control>
+  
+              <br />
+              <!-- Campo de Descrição -->
+              <mdb-form-control>
+                <input mdbInput type="text" name="descricao" class="form-control" [(ngModel)]="disciplina.descricao" />
+                <label mdbLabel class="form-label" for="descricao">Descrição:</label>
+              </mdb-form-control>
+              <br />
+  
+              <!-- Condicional para o botão de Salvar ou Atualizar -->
+              <ng-container *ngIf="disciplina.id > 0">
+                <button type="submit" [disabled]="!formulario.valid" class="btn btn-success btn-rounded">
+                  <i class="fas fa-save fa-sm"></i> Atualizar
+                </button>
+              </ng-container>
+              <button *ngIf="disciplina.id === 0" type="submit" [disabled]="!formulario.valid" class="btn btn-success btn-rounded">
+                <i class="fas fa-save fa-sm"></i> Salvar
+              </button>
+  
+            </form>
+  
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-4"></div>
+    </div>
+  </div>
+  
